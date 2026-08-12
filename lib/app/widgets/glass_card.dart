@@ -8,10 +8,12 @@ class GlassCard extends StatefulWidget {
   final EdgeInsetsGeometry? margin;
   final double? width;
   final double? height;
-  final BorderRadius? borderRadius;
+  final BorderRadiusGeometry? borderRadius;
   final VoidCallback? onTap;
   final Color? borderColor;
   final Color? backgroundColor;
+  final double blur;
+  final BoxBorder? border;
 
   const GlassCard({
     super.key,
@@ -24,6 +26,8 @@ class GlassCard extends StatefulWidget {
     this.onTap,
     this.borderColor,
     this.backgroundColor,
+    this.blur = 10.0,
+    this.border,
   });
 
   @override
@@ -35,58 +39,62 @@ class _GlassCardState extends State<GlassCard> {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveRadius = widget.borderRadius ?? BorderRadius.circular(16);
+    final effectiveRadius = (widget.borderRadius as BorderRadius?) ?? BorderRadius.circular(16);
+    final effectivePadding = widget.padding ?? const EdgeInsets.all(20);
 
-    return Container(
+    final effectiveBorder = widget.border ??
+        Border.all(
+          color: _isHovered
+              ? AppColors.glassHoverBorder
+              : (widget.borderColor ?? AppColors.glassBorder),
+          width: 1.0,
+        );
+
+    final cardContent = Container(
+      padding: effectivePadding,
+      decoration: BoxDecoration(
+        color: widget.backgroundColor ??
+            (_isHovered
+                ? Colors.white.withOpacity(0.06)
+                : AppColors.glassSurface),
+        borderRadius: effectiveRadius,
+        border: effectiveBorder,
+      ),
+      child: widget.child,
+    );
+
+    Widget result = Container(
       margin: widget.margin,
       width: widget.width,
       height: widget.height,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            transform: _isHovered
-                ? (Matrix4.identity()..translate(0.0, -4.0, 0.0))
-                : Matrix4.identity(),
-            child: ClipRRect(
-              borderRadius: effectiveRadius,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(
-                  padding: widget.padding,
-                  decoration: BoxDecoration(
-                    color: widget.backgroundColor ??
-                        (_isHovered
-                            ? Colors.white.withOpacity(0.06)
-                            : AppColors.glassSurface),
-                    borderRadius: effectiveRadius,
-                    border: Border.all(
-                      color: _isHovered
-                          ? AppColors.glassHoverBorder
-                          : (widget.borderColor ?? AppColors.glassBorder),
-                      width: 1,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _isHovered
-                            ? AppColors.primaryCyan.withOpacity(0.15)
-                            : Colors.black.withOpacity(0.25),
-                        blurRadius: _isHovered ? 24 : 16,
-                        spreadRadius: -4,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: widget.child,
-                ),
-              ),
-            ),
-          ),
+      child: ClipRRect(
+        borderRadius: effectiveRadius,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
+          child: cardContent,
         ),
       ),
     );
+
+    if (widget.onTap != null) {
+      result = MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          behavior: HitTestBehavior.opaque,
+          child: result,
+        ),
+      );
+    } else {
+      result = MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: result,
+      );
+    }
+
+    return result;
   }
 }

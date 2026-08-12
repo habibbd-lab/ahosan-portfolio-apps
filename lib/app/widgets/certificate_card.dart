@@ -111,8 +111,7 @@ class CertificateCard extends StatelessWidget {
               );
             }).toList(),
           ),
-          const Spacer(),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

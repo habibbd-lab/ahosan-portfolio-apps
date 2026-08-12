@@ -213,7 +213,7 @@ class ContactView extends GetView<ContactController> {
           Text(subtitle, style: AppTypography.caption),
           const SizedBox(height: 8),
           Text(val, style: AppTypography.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
-          const Spacer(),
+          const SizedBox(height: 16),
           CustomButton(
             text: action,
             isOutline: true,
