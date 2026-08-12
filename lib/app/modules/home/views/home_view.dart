@@ -170,6 +170,24 @@ class HomeView extends GetView<HomeController> {
                         );
                       }).toList(),
                     ),
+                    tablet: (context, constraints) => GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 24,
+                        childAspectRatio: 0.85,
+                      ),
+                      itemCount: controller.featuredProjects.length,
+                      itemBuilder: (context, index) {
+                        final p = controller.featuredProjects[index];
+                        return ProjectCard(
+                          project: p,
+                          onTap: () => shellController.navigateTo(AppRoutes.PROJECTS),
+                        );
+                      },
+                    ),
                     desktop: (context, constraints) => GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -224,6 +242,25 @@ class HomeView extends GetView<HomeController> {
                           ),
                         );
                       }).toList(),
+                    ),
+                    tablet: (context, constraints) => GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 24,
+                        childAspectRatio: 0.82,
+                      ),
+                      itemCount: controller.services.length,
+                      itemBuilder: (context, index) {
+                        final s = controller.services[index];
+                        return ServiceCard(
+                          service: s,
+                          onLearnMore: () => shellController.navigateTo(AppRoutes.SERVICES),
+                          onRequest: () => shellController.navigateTo(AppRoutes.CONTACT),
+                        );
+                      },
                     ),
                     desktop: (context, constraints) => GridView.builder(
                       shrinkWrap: true,

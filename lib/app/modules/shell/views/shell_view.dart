@@ -35,7 +35,7 @@ class ShellView extends GetView<ShellController> {
                 ),
               ],
             ),
-      drawer: isDesktop ? null : const MobileDrawer(),
+      drawer: const MobileDrawer(),
       body: child,
       bottomNavigationBar: isMobile ? const BottomNavBar() : null,
     );

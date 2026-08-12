@@ -86,8 +86,7 @@ class ServiceCard extends StatelessWidget {
               ),
             );
           }),
-          const Spacer(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Row(
             children: [
               Expanded(
