@@ -5,6 +5,7 @@ import '../../../routes/app_routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_typography.dart';
 import '../../../widgets/custom_button.dart';
+import '../../../widgets/global_search_dialog.dart';
 import '../controllers/shell_controller.dart';
 
 class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
@@ -36,8 +37,8 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
         child: Container(
           height: 80,
           padding: const EdgeInsets.symmetric(horizontal: 32),
-          decoration: const BoxDecoration(
-            color: Color(0x990A0F1D),
+          decoration: BoxDecoration(
+            color: AppColors.isDark ? const Color(0x990A0F1D) : const Color(0xCCFFFFFF),
             border: Border(
               bottom: BorderSide(color: AppColors.glassBorder, width: 1),
             ),
@@ -78,7 +79,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                       margin: const EdgeInsets.only(left: 6),
                       width: 8,
                       height: 8,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.primaryCyan,
                         shape: BoxShape.circle,
                       ),
@@ -130,7 +131,35 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                 );
               }),
 
-              const SizedBox(width: 16),
+              const SizedBox(width: 8),
+
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: AppColors.primaryCyan,
+                  size: 20,
+                ),
+                onPressed: () => GlobalSearchDialog.show(),
+                tooltip: "Search Portfolio",
+              ),
+
+              const SizedBox(width: 4),
+
+              Obx(() => IconButton(
+                icon: Icon(
+                  controller.isDarkMode.value
+                      ? Icons.wb_sunny_outlined
+                      : Icons.nightlight_round_outlined,
+                  color: AppColors.primaryCyan,
+                  size: 20,
+                ),
+                onPressed: () => controller.toggleTheme(),
+                tooltip: controller.isDarkMode.value
+                    ? "Switch to Light Mode"
+                    : "Switch to Dark Mode",
+              )),
+
+              const SizedBox(width: 12),
 
               // Hire Me CTA Button
               CustomButton(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/models/project_model.dart';
 import '../../../data/repositories/portfolio_repository.dart';
+import '../../../theme/app_colors.dart';
 import '../../../widgets/modal_dialog.dart';
+import '../../../widgets/project_image_slider.dart';
 
 class ProjectsController extends GetxController {
   final PortfolioRepository repository = PortfolioRepository();
@@ -55,19 +57,41 @@ class ProjectsController extends GetxController {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            project.description,
-            style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 14),
-          Text(
-            project.fullDetails,
-            style: const TextStyle(color: Colors.white70, fontSize: 14, height: 1.5),
+          ProjectImageSlider(
+            images: project.images,
+            height: 200,
+            projectTitle: project.title,
           ),
           const SizedBox(height: 16),
+          Text(
+            project.description,
+            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            project.fullDetails,
+            style: const TextStyle(color: Colors.white70, fontSize: 13, height: 1.5),
+          ),
+          const SizedBox(height: 16),
+          const Text("Technologies & Stack:", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+          const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children: project.tags.map((t) => Chip(label: Text(t))).toList(),
+            runSpacing: 8,
+            children: project.tags.map((t) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceDark,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: AppColors.glassBorder),
+                ),
+                child: Text(
+                  t,
+                  style: TextStyle(color: AppColors.primaryCyan, fontSize: 11, fontWeight: FontWeight.bold),
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),

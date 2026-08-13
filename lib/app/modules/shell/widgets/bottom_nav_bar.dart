@@ -21,7 +21,7 @@ class BottomNavBar extends StatelessWidget {
 
     return Obx(() {
       return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.backgroundSecondary,
           border: Border(top: BorderSide(color: AppColors.glassBorder, width: 1)),
         ),

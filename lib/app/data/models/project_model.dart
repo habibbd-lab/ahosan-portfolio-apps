@@ -5,6 +5,7 @@ class ProjectModel {
   final String description;
   final String fullDetails;
   final String? imageUrl;
+  final List<String> images;
   final List<String> tags;
   final String status; // 'LIVE', 'COMPLETED', 'ACTIVE LAB', 'READY'
   final bool isFeatured;
@@ -21,6 +22,7 @@ class ProjectModel {
     required this.description,
     required this.fullDetails,
     this.imageUrl,
+    List<String>? images,
     required this.tags,
     required this.status,
     this.isFeatured = false,
@@ -29,5 +31,11 @@ class ProjectModel {
     this.caseStudyUrl,
     this.isFlutterApp = false,
     this.apkDownloadUrl,
-  });
+  }) : images = images ?? [
+          if (imageUrl != null && imageUrl.isNotEmpty) imageUrl,
+          'assets/icons/chef_starz_banner.png',
+          'assets/icons/chef_starz_slide2.png',
+          'slide_3',
+          'slide_4',
+        ];
 }

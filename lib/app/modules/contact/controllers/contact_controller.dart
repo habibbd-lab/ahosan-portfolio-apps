@@ -12,6 +12,7 @@ class ContactController extends GetxController {
   final ContactFormModel formModel = ContactFormModel();
 
   final RxBool isSubmitting = false.obs;
+  final RxBool agreeTerms = true.obs;
   final RxInt expandedFaqIndex = (-1).obs;
 
   late final List<Map<String, String>> faqs;
@@ -55,7 +56,7 @@ class ContactController extends GetxController {
 
   Future<void> submitForm() async {
     if (formKey.currentState?.validate() ?? false) {
-      if (!formModel.agreeTerms) {
+      if (!agreeTerms.value) {
         Get.snackbar(
           "Agreement Required",
           "Please agree to the processing of data before sending message.",

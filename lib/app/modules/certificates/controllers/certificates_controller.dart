@@ -58,11 +58,24 @@ class CertificatesController extends GetxController {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.white10),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 12,
+              runSpacing: 8,
               children: [
-                Text("CREDENTIAL ID: ${cert.credentialId}", style: const TextStyle(fontFamily: 'monospace', color: Colors.cyan)),
-                Text(cert.isVerified ? "STATUS: VERIFIED" : "STATUS: PLANNED", style: TextStyle(color: cert.isVerified ? Colors.green : Colors.orange, fontWeight: FontWeight.bold)),
+                SelectableText(
+                  "CREDENTIAL ID: ${cert.credentialId}",
+                  style: const TextStyle(fontFamily: 'monospace', color: Colors.cyan, fontSize: 12),
+                ),
+                Text(
+                  cert.isVerified ? "STATUS: VERIFIED" : "STATUS: PLANNED",
+                  style: TextStyle(
+                    color: cert.isVerified ? Colors.green : Colors.orange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),

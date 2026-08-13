@@ -65,7 +65,7 @@ class ModalDialog extends StatelessWidget {
                 // Modal Header
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.surfaceDark,
                     border: Border(bottom: BorderSide(color: AppColors.glassBorder)),
                   ),
@@ -96,7 +96,7 @@ class ModalDialog extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () => Get.back(),
-                        icon: const Icon(Icons.close, color: AppColors.textMuted),
+                        icon: Icon(Icons.close, color: AppColors.textMuted),
                         hoverColor: Colors.white10,
                       ),
                     ],
@@ -113,7 +113,7 @@ class ModalDialog extends StatelessWidget {
                 if (actions != null && actions!.isNotEmpty)
                   Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.surfaceDark,
                       border: Border(top: BorderSide(color: AppColors.glassBorder)),
                     ),

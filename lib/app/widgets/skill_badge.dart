@@ -17,7 +17,8 @@ class SkillBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(10),
+      onTap: onExpand,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,26 +26,26 @@ class SkillBadge extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: AppColors.primaryCyan.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: AppColors.primaryCyan.withOpacity(0.3),
                     width: 1,
                   ),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.code,
                   color: AppColors.primaryCyan,
-                  size: 20,
+                  size: 16,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: AppColors.surfaceDark,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: AppColors.glassBorder),
                 ),
                 child: Text(
@@ -52,22 +53,29 @@ class SkillBadge extends StatelessWidget {
                   style: AppTypography.caption.copyWith(
                     color: AppColors.primaryCyan,
                     fontWeight: FontWeight.bold,
+                    fontSize: 9,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           Text(
             skill.name,
-            style: AppTypography.subtitle,
+            style: AppTypography.subtitle.copyWith(fontSize: 13),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 4),
-          Text(
-            skill.description,
-            style: AppTypography.body2,
+          const SizedBox(height: 2),
+          Expanded(
+            child: Text(
+              skill.description,
+              style: AppTypography.body2.copyWith(fontSize: 10, height: 1.3),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 6),
           Row(
             children: [
               Expanded(
@@ -75,38 +83,39 @@ class SkillBadge extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   child: LinearProgressIndicator(
                     value: skill.percentage / 100,
-                    minHeight: 6,
+                    minHeight: 5,
                     backgroundColor: AppColors.surfaceDark,
-                    valueColor: const AlwaysStoppedAnimation<Color>(
+                    valueColor: AlwaysStoppedAnimation<Color>(
                       AppColors.primaryCyan,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 8),
               Text(
                 "${skill.percentage}%",
                 style: AppTypography.caption.copyWith(
                   color: AppColors.textPrimary,
                   fontWeight: FontWeight.bold,
+                  fontSize: 10,
                 ),
               ),
             ],
           ),
           if (onExpand != null) ...[
-            const SizedBox(height: 12),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton.icon(
-                onPressed: onExpand,
-                icon: const Icon(Icons.info_outline, size: 14),
-                label: const Text("Expand Details"),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.textMuted,
-                  textStyle: AppTypography.caption,
-                  padding: EdgeInsets.zero,
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "See More ->",
+                  style: AppTypography.caption.copyWith(
+                    color: AppColors.primaryCyan,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 9,
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ],

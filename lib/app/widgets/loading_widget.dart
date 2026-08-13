@@ -12,7 +12,7 @@ class LoadingWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
+          SizedBox(
             width: 36,
             height: 36,
             child: CircularProgressIndicator(
@@ -24,7 +24,7 @@ class LoadingWidget extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               message!,
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
           ],
         ],

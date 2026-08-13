@@ -18,32 +18,43 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, color: AppColors.primaryCyan, size: 28),
-            const SizedBox(height: 8),
+            Icon(icon, color: AppColors.primaryCyan, size: 24),
+            const SizedBox(height: 4),
           ],
-          ShaderMask(
-            shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
-            child: Text(
-              number,
-              style: AppTypography.heroHeading.copyWith(
-                fontSize: 36,
-                color: Colors.white,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: ShaderMask(
+              shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
+              child: Text(
+                number,
+                style: AppTypography.heroHeading.copyWith(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            label.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: AppTypography.caption.copyWith(
-              color: AppColors.textSecondary,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.8,
+          const SizedBox(height: 4),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: AppTypography.caption.copyWith(
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.8,
+                fontSize: 11,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

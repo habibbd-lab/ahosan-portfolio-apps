@@ -17,7 +17,7 @@ class CertificateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,12 +26,12 @@ class CertificateCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: certificate.isVerified
                       ? AppColors.accentGreen.withOpacity(0.1)
                       : AppColors.accentOrange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: certificate.isVerified
                         ? AppColors.accentGreen
@@ -40,21 +40,22 @@ class CertificateCard extends StatelessWidget {
                   ),
                 ),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       certificate.isVerified
                           ? Icons.verified
                           : Icons.access_time_filled,
-                      size: 12,
+                      size: 10,
                       color: certificate.isVerified
                           ? AppColors.accentGreen
                           : AppColors.accentOrange,
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 3),
                     Text(
-                      certificate.isVerified ? "Verified Credential" : "Planned",
+                      certificate.isVerified ? "Verified" : "Planned",
                       style: AppTypography.caption.copyWith(
-                        fontSize: 10,
+                        fontSize: 8,
                         fontWeight: FontWeight.bold,
                         color: certificate.isVerified
                             ? AppColors.accentGreen
@@ -64,70 +65,88 @@ class CertificateCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                certificate.date,
-                style: AppTypography.caption.copyWith(
-                  color: AppColors.textMuted,
+              Expanded(
+                child: Text(
+                  certificate.date,
+                  textAlign: TextAlign.right,
+                  style: AppTypography.caption.copyWith(
+                    color: AppColors.textMuted,
+                    fontSize: 9,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 8),
           Text(
             certificate.title,
-            style: AppTypography.subtitle,
+            style: AppTypography.subtitle.copyWith(fontSize: 13),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             certificate.institute,
             style: AppTypography.caption.copyWith(
               color: AppColors.primaryCyan,
               fontWeight: FontWeight.w600,
+              fontSize: 10,
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            certificate.description,
-            style: AppTypography.body2,
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 4),
+          Expanded(
+            child: Text(
+              certificate.description,
+              style: AppTypography.body2.copyWith(fontSize: 10, height: 1.3),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(height: 6),
           Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: certificate.skills.map((skill) {
+            spacing: 4,
+            runSpacing: 4,
+            children: certificate.skills.take(2).map((skill) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 decoration: BoxDecoration(
                   color: AppColors.surfaceDark,
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(4),
                   border: Border.all(color: AppColors.glassBorder),
                 ),
                 child: Text(
                   skill,
-                  style: AppTypography.caption.copyWith(fontSize: 10),
+                  style: AppTypography.caption.copyWith(fontSize: 8),
                 ),
               );
             }).toList(),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "ID: ${certificate.credentialId}",
-                style: AppTypography.caption.copyWith(
-                  fontFamily: 'monospace',
-                  color: AppColors.textMuted,
-                  fontSize: 10,
+              Expanded(
+                child: Text(
+                  "ID: ${certificate.credentialId}",
+                  style: AppTypography.caption.copyWith(
+                    fontFamily: 'monospace',
+                    color: AppColors.textMuted,
+                    fontSize: 8,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Text(
-                "Details ->",
+                "See More ->",
                 style: AppTypography.caption.copyWith(
                   color: AppColors.primaryCyan,
                   fontWeight: FontWeight.bold,
+                  fontSize: 10,
                 ),
               ),
             ],

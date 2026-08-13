@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../routes/app_routes.dart';
+import '../../../theme/app_theme.dart';
 
 class ShellController extends GetxController {
   final RxString currentRoute = AppRoutes.HOME.obs;
   final RxInt selectedBottomNavIndex = 0.obs;
+  final RxBool isDarkMode = true.obs;
+
+  void toggleTheme() {
+    isDarkMode.value = !isDarkMode.value;
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
+    Get.changeTheme(isDarkMode.value ? AppTheme.darkTheme : AppTheme.lightTheme);
+    Get.forceAppUpdate();
+  }
 
   @override
   void onInit() {

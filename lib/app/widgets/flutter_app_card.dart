@@ -26,7 +26,7 @@ class FlutterAppCard extends StatelessWidget {
         children: [
           // App Icon Header Banner
           Container(
-            height: 120,
+            height: 85,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -43,36 +43,38 @@ class FlutterAppCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.flutter_dash,
-                        size: 38,
+                        size: 28,
                         color: AppColors.primaryCyan,
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 4),
                       Text(
                         app.title,
                         style: AppTypography.subtitle.copyWith(
-                          fontSize: 16,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  left: 10,
+                  top: 6,
+                  left: 6,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: AppColors.backgroundSecondary,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: AppColors.glassBorder),
                     ),
                     child: Text(
                       app.status,
                       style: AppTypography.caption.copyWith(
-                        fontSize: 9,
+                        fontSize: 8,
                         fontWeight: FontWeight.bold,
                         color: AppColors.accentGreen,
                       ),
@@ -82,59 +84,63 @@ class FlutterAppCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  app.description,
-                  style: AppTypography.body2,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 4,
-                  children: app.tags.map((tag) {
-                    return Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: AppColors.surfaceDark,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: AppColors.glassBorder),
-                      ),
-                      child: Text(
-                        tag,
-                        style: AppTypography.caption.copyWith(fontSize: 10),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomButton(
-                        text: "Preview",
-                        isOutline: true,
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        onPressed: onPreview,
-                      ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      app.description,
+                      style: AppTypography.body2.copyWith(fontSize: 10, height: 1.3),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: CustomButton(
-                        text: "Specs",
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        onPressed: onSpecs,
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: app.tags.take(2).map((tag) {
+                      return Container(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceDark,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: AppColors.glassBorder),
+                        ),
+                        child: Text(
+                          tag,
+                          style: AppTypography.caption.copyWith(fontSize: 8),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomButton(
+                          text: "See More",
+                          isOutline: true,
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          onPressed: onPreview,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: CustomButton(
+                          text: "Specs",
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          onPressed: onSpecs,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

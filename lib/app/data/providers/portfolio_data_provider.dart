@@ -20,6 +20,15 @@ class PortfolioDataProvider {
   static const String facebook = "https://facebook.com/habibhasan";
   static const String website = "https://hasan1h2.github.io/portfolio";
 
+  // Functional Deep-Link URLs
+  static const String whatsappUrl = "https://wa.me/8801742757448";
+  static const String emailUrl = "mailto:mdhasanhabibh@gmail.com";
+  static const String phoneUrl = "tel:01742757448";
+  static const String githubUrl = "https://github.com/hasan1h2";
+  static const String linkedinUrl = "https://linkedin.com/in/habibhasan";
+  static const String facebookUrl = "https://facebook.com/habibhasan";
+  static const String messengerUrl = "https://m.me/habibhasan";
+
   static const String bioSummary =
       "Agency-proven Flutter App Developer with 6 months hands-on experience at Sparktech Agency (Betopa Group). Specialized in building responsive cross-platform mobile apps (Dart, Flutter, GetX, REST API), web applications, clean UI architecture, graphic design, video editing, and DevOps.";
 

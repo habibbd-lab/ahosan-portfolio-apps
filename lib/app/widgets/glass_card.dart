@@ -26,7 +26,7 @@ class GlassCard extends StatefulWidget {
     this.onTap,
     this.borderColor,
     this.backgroundColor,
-    this.blur = 10.0,
+    this.blur = 0.0,
     this.border,
   });
 
@@ -55,10 +55,21 @@ class _GlassCardState extends State<GlassCard> {
       decoration: BoxDecoration(
         color: widget.backgroundColor ??
             (_isHovered
-                ? Colors.white.withOpacity(0.06)
+                ? (AppColors.isDark
+                    ? Colors.white.withOpacity(0.08)
+                    : Colors.black.withOpacity(0.03))
                 : AppColors.glassSurface),
         borderRadius: effectiveRadius,
         border: effectiveBorder,
+        boxShadow: AppColors.isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: widget.child,
     );
@@ -69,10 +80,12 @@ class _GlassCardState extends State<GlassCard> {
       height: widget.height,
       child: ClipRRect(
         borderRadius: effectiveRadius,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
-          child: cardContent,
-        ),
+        child: widget.blur > 0
+            ? BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
+                child: cardContent,
+              )
+            : cardContent,
       ),
     );
 

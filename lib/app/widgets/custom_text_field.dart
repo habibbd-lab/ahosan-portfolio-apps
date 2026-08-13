@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           maxLines: maxLines,
           keyboardType: keyboardType,
-          style: AppTypography.body1.copyWith(color: Colors.white),
+          style: AppTypography.body1.copyWith(color: AppColors.textPrimary),
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: AppTypography.body2.copyWith(color: AppColors.textMuted),
@@ -53,15 +53,15 @@ class CustomTextField extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.glassBorder),
+              borderSide: BorderSide(color: AppColors.glassBorder),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.glassBorder),
+              borderSide: BorderSide(color: AppColors.glassBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.primaryCyan, width: 1.5),
+              borderSide: BorderSide(color: AppColors.primaryCyan, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

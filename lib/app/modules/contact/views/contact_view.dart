@@ -39,65 +39,42 @@ class ContactView extends GetView<ContactController> {
                   ),
                   const SizedBox(height: 36),
 
-                  // Metadata Attributes Bar
-                  ResponsiveBuilder(
-                    mobile: (context, constraints) => Column(
-                      children: const [
-                        _MetaBadge(title: "NAME", value: "Md: Ahosan Habib Hasan"),
-                        SizedBox(height: 8),
-                        _MetaBadge(title: "LOCATION", value: "Sirajgonj, Bangladesh"),
-                        SizedBox(height: 8),
-                        _MetaBadge(title: "RESPONSE TIME", value: "< 2 Hours"),
-                        SizedBox(height: 8),
-                        _MetaBadge(title: "AVAILABILITY", value: "Open for Hire"),
-                      ],
-                    ),
-                    desktop: (context, constraints) => Row(
-                      children: const [
-                        Expanded(child: _MetaBadge(title: "NAME", value: "Md: Ahosan Habib Hasan")),
-                        SizedBox(width: 12),
-                        Expanded(child: _MetaBadge(title: "LOCATION", value: "Sirajgonj, Bangladesh")),
-                        SizedBox(width: 12),
-                        Expanded(child: _MetaBadge(title: "RESPONSE TIME", value: "< 2 Hours")),
-                        SizedBox(width: 12),
-                        Expanded(child: _MetaBadge(title: "AVAILABILITY", value: "Open for Hire")),
-                      ],
-                    ),
+                  // Metadata Attributes Bar (at least 2 per row)
+                  GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: isMobile ? 2 : 4,
+                    crossAxisSpacing: isMobile ? 12 : 12,
+                    mainAxisSpacing: isMobile ? 12 : 12,
+                    childAspectRatio: isMobile ? 1.7 : 2.5,
+                    children: const [
+                      _MetaBadge(title: "NAME", value: "Md: Ahosan Habib Hasan"),
+                      _MetaBadge(title: "LOCATION", value: "Sirajgonj, Bangladesh"),
+                      _MetaBadge(title: "RESPONSE TIME", value: "< 2 Hours"),
+                      _MetaBadge(title: "AVAILABILITY", value: "Open for Hire"),
+                    ],
                   ),
 
                   const SizedBox(height: 48),
 
-                  // Direct Channels Grid
+                  // Direct Channels Grid (at least 2 per row)
                   Text("DIRECT CHANNELS", style: AppTypography.caption.copyWith(color: AppColors.primaryCyan, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
                   Text("Quick Contact Channels", style: AppTypography.title2),
                   const SizedBox(height: 24),
 
-                  ResponsiveBuilder(
-                    mobile: (context, constraints) => Column(
-                      children: [
-                        _buildChannelCard(shellController, title: "Direct Email", subtitle: "Primary Inbox Channel", val: PortfolioDataProvider.email, action: "Send Email", link: "mailto:${PortfolioDataProvider.email}"),
-                        const SizedBox(height: 16),
-                        _buildChannelCard(shellController, title: "Phone Number", subtitle: "Direct Voice Call", val: PortfolioDataProvider.phone, action: "Call Now", link: "tel:${PortfolioDataProvider.phone}"),
-                        const SizedBox(height: 16),
-                        _buildChannelCard(shellController, title: "WhatsApp Chat", subtitle: "Instant Messaging", val: PortfolioDataProvider.whatsapp, action: "Open WhatsApp", link: PortfolioDataProvider.whatsapp),
-                        const SizedBox(height: 16),
-                        _buildChannelCard(shellController, title: "FB Messenger", subtitle: "Social Direct Message", val: PortfolioDataProvider.messenger, action: "Open Messenger", link: "https://${PortfolioDataProvider.messenger}"),
-                      ],
-                    ),
-                    desktop: (context, constraints) => GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 1.2,
-                      children: [
-                        _buildChannelCard(shellController, title: "Direct Email", subtitle: "Primary Inbox Channel", val: PortfolioDataProvider.email, action: "Send Email", link: "mailto:${PortfolioDataProvider.email}"),
-                        _buildChannelCard(shellController, title: "Phone Number", subtitle: "Direct Voice Call", val: PortfolioDataProvider.phone, action: "Call Now", link: "tel:${PortfolioDataProvider.phone}"),
-                        _buildChannelCard(shellController, title: "WhatsApp Chat", subtitle: "Instant Messaging", val: PortfolioDataProvider.whatsapp, action: "Open WhatsApp", link: PortfolioDataProvider.whatsapp),
-                        _buildChannelCard(shellController, title: "FB Messenger", subtitle: "Social Direct Message", val: PortfolioDataProvider.messenger, action: "Open Messenger", link: "https://${PortfolioDataProvider.messenger}"),
-                      ],
-                    ),
+                  GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: isMobile ? 2 : 4,
+                    crossAxisSpacing: isMobile ? 12 : 16,
+                    mainAxisSpacing: isMobile ? 12 : 16,
+                    childAspectRatio: isMobile ? 0.78 : 1.2,
+                    children: [
+                      _buildChannelCard(shellController, title: "Direct Email", subtitle: "Primary Inbox Channel", val: PortfolioDataProvider.email, action: "Send Email", link: PortfolioDataProvider.emailUrl, isMobile: isMobile),
+                      _buildChannelCard(shellController, title: "Phone Number", subtitle: "Direct Voice Call", val: PortfolioDataProvider.phone, action: "Call Now", link: PortfolioDataProvider.phoneUrl, isMobile: isMobile),
+                      _buildChannelCard(shellController, title: "WhatsApp Chat", subtitle: "Instant Messaging", val: PortfolioDataProvider.whatsapp, action: "Open WhatsApp", link: PortfolioDataProvider.whatsappUrl, isMobile: isMobile),
+                      _buildChannelCard(shellController, title: "FB Messenger", subtitle: "Social Direct Message", val: PortfolioDataProvider.messenger, action: "Open Messenger", link: PortfolioDataProvider.messengerUrl, isMobile: isMobile),
+                    ],
                   ),
 
                   const SizedBox(height: 64),
@@ -106,7 +83,7 @@ class ContactView extends GetView<ContactController> {
                   ResponsiveBuilder(
                     mobile: (context, constraints) => Column(
                       children: [
-                        _buildFormSection(),
+                        _buildFormSection(true),
                         const SizedBox(height: 32),
                         _buildBaseLocationCard(),
                       ],
@@ -114,7 +91,7 @@ class ContactView extends GetView<ContactController> {
                     desktop: (context, constraints) => Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(flex: 7, child: _buildFormSection()),
+                        Expanded(flex: 7, child: _buildFormSection(false)),
                         const SizedBox(width: 32),
                         Expanded(flex: 5, child: _buildBaseLocationCard()),
                       ],
@@ -123,60 +100,113 @@ class ContactView extends GetView<ContactController> {
 
                   const SizedBox(height: 64),
 
-                  // FAQ Accordion
+                  // FAQ Accordion (2 per row layout)
                   Text("TAG • FAQ", style: AppTypography.caption.copyWith(color: AppColors.primaryCyan, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
                   Text("Frequently Asked Questions", style: AppTypography.title2),
                   const SizedBox(height: 8),
-                  Text("Common questions about working together, project scope, and deliverables.", style: AppTypography.body2),
+                  Text("Common questions about working together, project scope, and deliverables.", style: AppTypography.body2, textAlign: TextAlign.center),
                   const SizedBox(height: 32),
 
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Column(
-                      children: List.generate(controller.faqs.length, (index) {
-                        final faq = controller.faqs[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: Obx(() {
-                            final isExpanded = controller.expandedFaqIndex.value == index;
-                            return GlassCard(
-                              padding: const EdgeInsets.all(20),
-                              onTap: () => controller.toggleFaq(index),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          faq['question']!,
-                                          style: AppTypography.subtitle.copyWith(fontSize: 15),
-                                        ),
-                                      ),
-                                      Icon(
-                                        isExpanded ? Icons.remove : Icons.add,
-                                        color: AppColors.primaryCyan,
-                                      ),
-                                    ],
-                                  ),
-                                  if (isExpanded) ...[
-                                    const SizedBox(height: 12),
-                                    const Divider(color: AppColors.glassBorder),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      faq['answer']!,
-                                      style: AppTypography.body1,
+                  Obx(() {
+                    final faqs = controller.faqs;
+
+                    Widget buildFaqItem(int index) {
+                      final faq = faqs[index];
+                      final isExpanded = controller.expandedFaqIndex.value == index;
+                      return GlassCard(
+                        padding: EdgeInsets.all(isMobile ? 14 : 18),
+                        onTap: () => controller.toggleFaq(index),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    faq['question']!,
+                                    style: AppTypography.subtitle.copyWith(
+                                      fontSize: isMobile ? 13 : 15,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  ],
-                                ],
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: isExpanded
+                                        ? AppColors.primaryCyan.withOpacity(0.15)
+                                        : AppColors.surfaceDark,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    isExpanded ? Icons.remove : Icons.add,
+                                    color: AppColors.primaryCyan,
+                                    size: isMobile ? 16 : 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (isExpanded) ...[
+                              const SizedBox(height: 12),
+                              Divider(color: AppColors.glassBorder, height: 1),
+                              const SizedBox(height: 12),
+                              Text(
+                                faq['answer']!,
+                                style: AppTypography.body1.copyWith(
+                                  color: AppColors.textSecondary,
+                                  fontSize: isMobile ? 12 : 14,
+                                  height: 1.5,
+                                ),
                               ),
-                            );
-                          }),
-                        );
-                      }),
-                    ),
-                  ),
+                            ],
+                          ],
+                        ),
+                      );
+                    }
+
+                    if (isMobile) {
+                      return Column(
+                        children: List.generate(faqs.length, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: buildFaqItem(index),
+                          );
+                        }),
+                      );
+                    } else {
+                      final half = (faqs.length / 2).ceil();
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: List.generate(half, (i) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: buildFaqItem(i),
+                                );
+                              }),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              children: List.generate(faqs.length - half, (i) {
+                                final index = half + i;
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: buildFaqItem(index),
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  }),
                 ],
               ),
             ),
@@ -193,31 +223,49 @@ class ContactView extends GetView<ContactController> {
     required String val,
     required String action,
     required String link,
+    bool isMobile = false,
   }) {
     return GlassCard(
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(isMobile ? 12 : 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, style: AppTypography.subtitle.copyWith(fontSize: 14)),
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppTypography.subtitle.copyWith(fontSize: isMobile ? 13 : 14),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               IconButton(
-                icon: const Icon(Icons.copy, size: 14, color: AppColors.primaryCyan),
+                icon: Icon(Icons.copy, size: 14, color: AppColors.primaryCyan),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
                 onPressed: () => shellController.copyToClipboard(val, title),
                 tooltip: "Copy",
               ),
             ],
           ),
-          Text(subtitle, style: AppTypography.caption),
+          const SizedBox(height: 2),
+          Text(subtitle, style: AppTypography.caption.copyWith(fontSize: isMobile ? 10 : 12), maxLines: 1, overflow: TextOverflow.ellipsis),
+          const SizedBox(height: 6),
+          Text(
+            val,
+            style: AppTypography.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold, fontSize: isMobile ? 11 : 13),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const Spacer(),
           const SizedBox(height: 8),
-          Text(val, style: AppTypography.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
-          const SizedBox(height: 16),
           CustomButton(
             text: action,
             isOutline: true,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+            padding: EdgeInsets.symmetric(vertical: 6, horizontal: isMobile ? 8 : 12),
+            width: double.infinity,
             onPressed: () => shellController.launchURL(link),
           ),
         ],
@@ -225,9 +273,9 @@ class ContactView extends GetView<ContactController> {
     );
   }
 
-  Widget _buildFormSection() {
+  Widget _buildFormSection(bool isMobile) {
     return GlassCard(
-      padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(isMobile ? 16 : 32),
       child: Form(
         key: controller.formKey,
         child: Column(
@@ -237,47 +285,75 @@ class ContactView extends GetView<ContactController> {
             const SizedBox(height: 6),
             Text("Fill out the form below for project quotes, job offers, or consultations.", style: AppTypography.body2),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextField(
-                    label: "Your Name *",
-                    hint: "John Doe",
-                    onChanged: (val) => controller.formModel.name = val,
-                    validator: (val) => (val == null || val.isEmpty) ? "Name is required" : null,
+            if (isMobile) ...[
+              CustomTextField(
+                label: "Your Name *",
+                hint: "John Doe",
+                onChanged: (val) => controller.formModel.name = val,
+                validator: (val) => (val == null || val.isEmpty) ? "Name is required" : null,
+              ),
+              const SizedBox(height: 16),
+              CustomTextField(
+                label: "Your Email *",
+                hint: "john@example.com",
+                onChanged: (val) => controller.formModel.email = val,
+                validator: (val) => (val == null || !val.contains('@')) ? "Valid email required" : null,
+              ),
+              const SizedBox(height: 16),
+              CustomTextField(
+                label: "Phone Number (Optional)",
+                hint: "+1 (555) 000-0000",
+                onChanged: (val) => controller.formModel.phone = val,
+              ),
+              const SizedBox(height: 16),
+              CustomTextField(
+                label: "Company / Org (Optional)",
+                hint: "Agency or Business Name",
+                onChanged: (val) => controller.formModel.company = val,
+              ),
+            ] else ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextField(
+                      label: "Your Name *",
+                      hint: "John Doe",
+                      onChanged: (val) => controller.formModel.name = val,
+                      validator: (val) => (val == null || val.isEmpty) ? "Name is required" : null,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: CustomTextField(
-                    label: "Your Email *",
-                    hint: "john@example.com",
-                    onChanged: (val) => controller.formModel.email = val,
-                    validator: (val) => (val == null || !val.contains('@')) ? "Valid email required" : null,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: CustomTextField(
+                      label: "Your Email *",
+                      hint: "john@example.com",
+                      onChanged: (val) => controller.formModel.email = val,
+                      validator: (val) => (val == null || !val.contains('@')) ? "Valid email required" : null,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextField(
-                    label: "Phone Number (Optional)",
-                    hint: "+1 (555) 000-0000",
-                    onChanged: (val) => controller.formModel.phone = val,
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextField(
+                      label: "Phone Number (Optional)",
+                      hint: "+1 (555) 000-0000",
+                      onChanged: (val) => controller.formModel.phone = val,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: CustomTextField(
-                    label: "Company / Org (Optional)",
-                    hint: "Agency or Business Name",
-                    onChanged: (val) => controller.formModel.company = val,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: CustomTextField(
+                      label: "Company / Org (Optional)",
+                      hint: "Agency or Business Name",
+                      onChanged: (val) => controller.formModel.company = val,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
             const SizedBox(height: 16),
             CustomTextField(
               label: "Subject *",
@@ -296,19 +372,14 @@ class ContactView extends GetView<ContactController> {
             const SizedBox(height: 16),
             Row(
               children: [
-                StatefulBuilder(
-                  builder: (context, setState) {
-                    return Checkbox(
-                      value: controller.formModel.agreeTerms,
-                      activeColor: AppColors.primaryCyan,
-                      onChanged: (val) {
-                        setState(() {
-                          controller.formModel.agreeTerms = val ?? false;
-                        });
-                      },
-                    );
+                Obx(() => Checkbox(
+                  value: controller.agreeTerms.value,
+                  activeColor: AppColors.primaryCyan,
+                  onChanged: (val) {
+                    controller.agreeTerms.value = val ?? false;
+                    controller.formModel.agreeTerms = val ?? false;
                   },
-                ),
+                )),
                 Expanded(
                   child: Text(
                     "I agree to the storing and processing of my data in accordance with the Privacy Policy.",
@@ -352,7 +423,7 @@ class ContactView extends GetView<ContactController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.location_on, size: 40, color: AppColors.primaryCyan),
+                  Icon(Icons.location_on, size: 40, color: AppColors.primaryCyan),
                   const SizedBox(height: 8),
                   Text("Dhaka, Bangladesh", style: AppTypography.subtitle.copyWith(fontSize: 16)),
                   Text("UTC +6:00 Time Zone • Open for Global Contracts", style: AppTypography.caption),
@@ -366,9 +437,12 @@ class ContactView extends GetView<ContactController> {
           Wrap(
             spacing: 10,
             children: [
-              _buildSocialChip("GitHub", PortfolioDataProvider.github),
-              _buildSocialChip("LinkedIn", PortfolioDataProvider.linkedin),
-              _buildSocialChip("Facebook", PortfolioDataProvider.facebook),
+              _buildSocialChip("GitHub", PortfolioDataProvider.githubUrl),
+              _buildSocialChip("WhatsApp", PortfolioDataProvider.whatsappUrl),
+              _buildSocialChip("Email", PortfolioDataProvider.emailUrl),
+              _buildSocialChip("Phone", PortfolioDataProvider.phoneUrl),
+              _buildSocialChip("LinkedIn", PortfolioDataProvider.linkedinUrl),
+              _buildSocialChip("Facebook", PortfolioDataProvider.facebookUrl),
             ],
           ),
         ],
@@ -382,7 +456,7 @@ class ContactView extends GetView<ContactController> {
       label: Text(label),
       backgroundColor: AppColors.surfaceDark,
       labelStyle: AppTypography.caption.copyWith(color: AppColors.primaryCyan),
-      side: const BorderSide(color: AppColors.glassBorder),
+      side: BorderSide(color: AppColors.glassBorder),
       onPressed: () => shellController.launchURL(url),
     );
   }
@@ -397,12 +471,30 @@ class _MetaBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title, style: AppTypography.caption.copyWith(color: AppColors.primaryCyan, fontWeight: FontWeight.bold, fontSize: 10)),
+          Text(
+            title,
+            style: AppTypography.caption.copyWith(
+              color: AppColors.primaryCyan,
+              fontWeight: FontWeight.bold,
+              fontSize: 10,
+            ),
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 4),
-          Text(value, style: AppTypography.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold)),
+          Text(
+            value,
+            style: AppTypography.caption.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );

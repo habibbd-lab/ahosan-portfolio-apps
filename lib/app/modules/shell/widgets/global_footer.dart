@@ -28,11 +28,16 @@ class GlobalFooter extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildBrandBio(controller),
-                const SizedBox(height: 32),
-                _buildQuickLinks(controller),
-                const SizedBox(height: 32),
-                _buildPortfolioLinks(controller),
-                const SizedBox(height: 32),
+                const SizedBox(height: 28),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: _buildQuickLinks(controller)),
+                    const SizedBox(width: 16),
+                    Expanded(child: _buildPortfolioLinks(controller)),
+                  ],
+                ),
+                const SizedBox(height: 28),
                 _buildSocialLinks(controller),
               ],
             ),
@@ -48,7 +53,7 @@ class GlobalFooter extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 48),
-          const Divider(color: AppColors.glassBorder),
+          Divider(color: AppColors.glassBorder),
           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: isMobile
@@ -200,13 +205,13 @@ class GlobalFooter extends StatelessWidget {
         const SizedBox(height: 16),
         Row(
           children: [
-            _buildSocialIconButton(Icons.code, () => controller.launchURL(PortfolioDataProvider.github)),
+            _buildSocialIconButton(Icons.code, () => controller.launchURL(PortfolioDataProvider.githubUrl)),
             const SizedBox(width: 10),
-            _buildSocialIconButton(Icons.business, () => controller.launchURL(PortfolioDataProvider.linkedin)),
+            _buildSocialIconButton(Icons.business, () => controller.launchURL(PortfolioDataProvider.linkedinUrl)),
             const SizedBox(width: 10),
-            _buildSocialIconButton(Icons.email, () => controller.launchURL("mailto:${PortfolioDataProvider.email}")),
+            _buildSocialIconButton(Icons.email, () => controller.launchURL(PortfolioDataProvider.emailUrl)),
             const SizedBox(width: 10),
-            _buildSocialIconButton(Icons.chat, () => controller.launchURL(PortfolioDataProvider.whatsapp)),
+            _buildSocialIconButton(Icons.chat, () => controller.launchURL(PortfolioDataProvider.whatsappUrl)),
           ],
         ),
       ],

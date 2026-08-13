@@ -27,14 +27,14 @@ class CustomSearchBar extends StatelessWidget {
       child: TextField(
         controller: controller,
         onChanged: onChanged,
-        style: AppTypography.body1.copyWith(color: Colors.white),
+        style: AppTypography.body1.copyWith(color: AppColors.textPrimary),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTypography.body2.copyWith(color: AppColors.textMuted),
-          prefixIcon: const Icon(Icons.search, color: AppColors.primaryCyan),
+          prefixIcon: Icon(Icons.search, color: AppColors.primaryCyan),
           suffixIcon: onClear != null
               ? IconButton(
-                  icon: const Icon(Icons.clear, size: 18, color: AppColors.textMuted),
+                  icon: Icon(Icons.clear, size: 18, color: AppColors.textMuted),
                   onPressed: onClear,
                 )
               : null,

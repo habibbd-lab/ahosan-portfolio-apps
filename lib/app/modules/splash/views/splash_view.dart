@@ -68,7 +68,7 @@ class SplashView extends GetView<SplashController> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                const SizedBox(
+                SizedBox(
                   width: 32,
                   height: 32,
                   child: CircularProgressIndicator(

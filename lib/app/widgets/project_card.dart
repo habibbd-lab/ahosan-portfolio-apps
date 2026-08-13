@@ -3,6 +3,7 @@ import '../data/models/project_model.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 import 'glass_card.dart';
+import 'project_image_slider.dart';
 
 class ProjectCard extends StatelessWidget {
   final ProjectModel project;
@@ -22,151 +23,118 @@ class ProjectCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Project Workspace Header Banner
-          Container(
-            height: 140,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.electricBlue.withOpacity(0.2),
-                  AppColors.accentPurple.withOpacity(0.3),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+          // Project Workspace Header Banner with Image Slider
+          Stack(
+            children: [
+              ProjectImageSlider(
+                images: project.images,
+                height: 120,
+                projectTitle: project.title,
               ),
-            ),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          project.isFlutterApp
-                              ? Icons.phone_android
-                              : Icons.web,
-                          size: 36,
-                          color: AppColors.primaryCyan,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "PROJECT WORKSPACE",
-                          style: AppTypography.caption.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                        Text(
-                          project.title,
-                          style: AppTypography.caption.copyWith(
-                            color: AppColors.primaryCyan,
-                          ),
-                        ),
-                      ],
-                    ),
+              Positioned(
+                top: 10,
+                left: 10,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.primaryCyan.withOpacity(0.4)),
                   ),
-                ),
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: AppColors.backgroundSecondary,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.glassBorder),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: const BoxDecoration(
-                            color: AppColors.accentGreen,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          project.status,
-                          style: AppTypography.caption.copyWith(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Tech tags
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  children: project.tags.take(3).map((tag) {
-                    return Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryCyan.withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: AppColors.primaryCyan.withOpacity(0.2),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 5,
+                        height: 5,
+                        decoration: const BoxDecoration(
+                          color: AppColors.accentGreen,
+                          shape: BoxShape.circle,
                         ),
                       ),
-                      child: Text(
-                        tag,
+                      const SizedBox(width: 4),
+                      Text(
+                        project.status,
+                        style: AppTypography.caption.copyWith(
+                          fontSize: 8.5,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Tech tags
+                  Wrap(
+                    spacing: 3,
+                    runSpacing: 3,
+                    children: project.tags.take(2).map((tag) {
+                      return Container(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryCyan.withOpacity(0.08),
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: AppColors.primaryCyan.withOpacity(0.2),
+                          ),
+                        ),
+                        child: Text(
+                          tag,
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.primaryCyan,
+                            fontSize: 8,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    project.title,
+                    style: AppTypography.subtitle.copyWith(fontSize: 13),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Expanded(
+                    child: Text(
+                      project.description,
+                      style: AppTypography.body2.copyWith(fontSize: 10, height: 1.3),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "See More ->",
                         style: AppTypography.caption.copyWith(
                           color: AppColors.primaryCyan,
+                          fontWeight: FontWeight.bold,
                           fontSize: 10,
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  project.title,
-                  style: AppTypography.subtitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  project.description,
-                  style: AppTypography.body2,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "View Details ->",
-                      style: AppTypography.caption.copyWith(
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 9,
                         color: AppColors.primaryCyan,
-                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 12,
-                      color: AppColors.primaryCyan,
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

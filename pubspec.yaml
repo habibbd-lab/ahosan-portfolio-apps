@@ -29,6 +29,7 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/my-photo/
 
 flutter_launcher_icons:
   android: true
